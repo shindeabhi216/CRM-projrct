@@ -1,0 +1,13 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Order</title>
+</head>
+<body>
+    <form method="POST">
+        {% csrf_token %}
+        {{ form }}
+        <input type="submit" value="update" class="btn btn-success">
+    </form>
+</body>
+</html>

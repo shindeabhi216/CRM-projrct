@@ -1,0 +1,82 @@
+{%  extends 'crmaccounts/base.html' %}
+<html>
+<head>
+    <title>Home</title>
+</head>
+<body >
+{% include 'crmaccounts/navbar.html' %}
+
+{% block content %}
+    <style>
+    body{background-color: lightcyan;}
+    </style><br>
+    {% include 'crmaccounts/status.html' %}
+    <br>
+    <div class="container-fluid" style="margin-top: 5px;">
+    <div class="row">
+    <div class="col-md-4">
+    <center>
+        <a href="{% url 'create_order' %}" class="btn btn-success">  Place a New Orders</a>
+    </center><br>
+        <div class="card text-white text-center bg-dark">
+            <div class="card-header">
+            <h4 class="card-title">ordere customers</h4>
+    </div>
+        <div class="card-body">
+        <table class="table table-bordered table-sm text-center text-white">
+            <thead class="bg-primary">
+            <tr>
+                <th></th>
+                <th>Name</th>
+                <th>Phone</th>
+            </tr>
+            </thead>
+            <tbody >
+            {% for customer in customers %}
+                <tr>
+                    <th><a href="{% url 'customer' customer.id %}">view</a></th>
+                <td>{{ customer.name }}</td>
+                <td>{{ customer.mobile }}</td>
+                </tr>
+
+            {% endfor %}
+            </tbody>
+        </table>
+    </div>
+        </div>
+    </div>
+        <div class="col-md-8">
+            <div class="card text-white bg-dark text-center">
+                <div class="card-header">
+                    <h4 class="card-title "> Ordered products </h4>
+                </div>
+                <div class="card-body">
+                    <table class="table table-bordered table-sm text-center table-hover text-white">
+                        <tr class="bg-primary">
+                            <th>Name</th>
+                            <th>Create_Date</th>
+                            <th>Status</th>
+                            <th>Update</th>
+                            <th>Delete</th>
+                        </tr>
+                        <tbody class="bg-secondary ">
+                        {% for order in orders %}
+                            <tr>
+                            <td> {{ order.product }}</td>
+                            <td> {{ order.created_date }}</td>
+                            <td> {{ order.status }}</td>
+                            <td><a href="{% url 'update_order' order.id %}" class="bg-success btn">Update</a></td>
+                            <td><a href="{% url 'delete_order' order.id %}" class="bg-danger btn">Delete</a></td>
+                            </tr>
+                        {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+        </div>
+    </div>
+    </div>
+{% endblock %}
+</body>
+</html>

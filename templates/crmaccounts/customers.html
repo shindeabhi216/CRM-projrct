@@ -1,0 +1,83 @@
+{%  extends 'crmaccounts/base.html' %}
+<html>
+<head>
+    <title>customer</title>
+</head>
+<body>
+{% block content %}
+<style>
+.p{margin-top: -10px;}
+#h11{margin-top: 5px; font-family: "Droid Sans Mono Dotted"}
+body{background-color: lightcyan;}
+</style>
+    <h1 class="bg-primary text-white text-center " id="h11">{{ customers.name }} product Details...</h1>
+    <div class="container-fluid">
+    <div class="row">
+        <div class="col-md">
+            <div class="card">
+                <div class="card-body">
+                    <a href="{% url 'delete_customer' customers.id %}" class="btn btn-outline-danger btn-block" > Delete customer</a>
+                    <a href="{% url 'update_customer' customers.id %}" class="btn btn-outline-success btn-block"> Update customer</a>
+                </div>
+            </div>
+        </div>
+            <div class="col-md">
+                <div class="card card-sm bg-success text-white">
+                    <div class="card-body ">
+                        <p class="text-center">Contact Information</p>
+                       <center> <p class="p1">Mobile:&nbsp{{ customers.mobile }}</p>
+                           <p class="p1">Email: &nbsp{{ customers.email }} </p></center>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md">
+                <div class="card card-sm bg-primary text-white text-center">
+                    <div class="card-body">
+                        <h4 > Total orders</h4>
+                            {{ total_orders }}
+                    </div>
+                </div>
+            </div>
+    </div>
+    </div>
+<hr>
+<div class="row">
+    <div class="col-md">
+        <div class="card">
+            <div class="card-body">
+                <table class="table table-bordered table-sm text-center table-hover">
+                    <thead>
+                    <tr class="bg-success text-center">
+                        <th>Customer Name</th>
+                        <th>Product Name</th>
+                        <th>Product category</th>
+                        <th>Product Price</th>
+                        <th>Product Status</th>
+                        <th>Product order Date</th>
+                        <th>Product Update</th>
+                        <th>Product Detail</th>
+                    </tr>
+                    </thead>
+                    <tbody class="bg-secondary">
+                    {% for order in orders %}
+                       <tr>
+                       <td>{{ order.customer.name }}</td>
+                       <td>{{ order.product }}</td>
+                       <td>{{ order.product.category }}</td>
+                       <td>{{ order.product.price }}</td>
+                       <td>{{ order.status }}</td>
+                       <td>{{ order.created_date }}</td>
+                       <td><a href="{% url 'update_product' order.product.id %}" class="btn btn-success">update</a></td>
+                       <td><a href="{% url 'delete_product' order.product.id %}" class="btn btn-danger">Delete</a></td>
+                       </tr>
+                    {% endfor %}
+                    </tbody>
+                </table>
+
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+</body>
+</html>
